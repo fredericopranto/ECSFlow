@@ -1,0 +1,129 @@
+﻿using ExtensibleILRewriter.Extensions;
+using ExtensibleILRewriter.Processors.Parameters;
+using Mono.Cecil;
+using System;
+using System.Linq;
+using System.Reflection;
+
+namespace ExtensibleILRewriter.CodeInjection
+{
+    // TODO - cacheing
+    public abstract class CodeProvider<CodeProviderArgumentType>
+    {
+        public abstract bool HasState { get; }
+
+        public virtual Type GetStateType()
+        {
+            if (!HasState)
+            {
+                throw new InvalidOperationException($"Cannot call method '{nameof(GetStateType)}' on code provider which does not have state. Code provider name: '{GetType().FullName}'.");
+            }
+
+            throw new NotImplementedException($"Method '{nameof(GetStateType)}' has to be overriden and implemented in order to support state for code provider '{GetType().FullName}'.");
+        }
+
+        public abstract bool ShouldBeInjected(CodeProviderArgumentType codeProviderArgument);
+
+        public void CheckCodeProvidingMethodArguments(CodeProviderCallArgument[] requiredParameters)
+        {
+            var stateParametersCount = requiredParameters.Count(p => p.Type == CodeProviderCallArgumentType.FieldDefinition);
+
+            if (HasState && stateParametersCount == 0)
+            {
+                throw new InvalidOperationException($"Code provider '{GetType().FullName}' declares it has state but contains zero FieldDefinition required parameters.");
+            }
+
+            if (stateParametersCount > 1)
+            {
+                throw new InvalidOperationException($"Code provider '{GetType().FullName}' contains more than one FieldDefinition required parameter.");
+            }
+        }
+
+        public CodeProviderInjectionInfo GetCallInfo(CodeProviderArgumentType codeProviderArgument, ModuleDefinition destinationModule)
+        {
+            var methodInfo = GetCodeProvidingMethod(codeProviderArgument);
+            var opa2 = codeProviderArgument;
+            try
+            {
+                var opa = GetCodeProvidingMethodArguments(opa2);
+            }
+            catch (Exception e)
+            {
+                var opa = e;
+            }
+
+            var methodArguments = CodeProviderCallArgument.EmptyCollection;
+            var methodReference = GetAndCheckCodeProvidingMethodReference(methodInfo, methodArguments, destinationModule);
+
+            if (methodReference.ContainsGenericParameter)
+            {
+                var genericArgumentTypes = GetCodeProvidingMethodGenericArgumentTypes(codeProviderArgument);
+                var genericMethod = new GenericInstanceMethod(methodReference);
+                genericMethod.GenericArguments.AddRange(genericArgumentTypes);
+                methodReference = genericMethod;
+            }
+
+            CheckCodeProvidingMethodArguments(methodArguments);
+            return new CodeProviderInjectionInfo(methodReference, methodArguments);
+        }
+
+        public abstract MethodInfo GetCodeProvidingMethod(CodeProviderArgumentType codeProviderArgument);
+
+        public abstract CodeProviderCallArgument[] GetCodeProvidingMethodArguments(CodeProviderArgumentType codeProviderArgument);
+
+        public virtual TypeReference[] GetCodeProvidingMethodGenericArgumentTypes(CodeProviderArgumentType codeProviderArgument)
+        {
+            throw new NotImplementedException($"For usage of generic code providing method {nameof(GetCodeProvidingMethodGenericArgumentTypes)} must be properly implemented.");
+        }
+
+        public MethodReference GetAndCheckCodeProvidingMethodReference([NotNull]MethodInfo method, [NotNull]CodeProviderCallArgument[] codeProvidingMethodArguments, [NotNull]ModuleDefinition destinationModule)
+        {
+            var methodDeclaringType = method.DeclaringType;
+
+            if (!method.IsStatic)
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' must be static to be injected.");
+            }
+
+            if (!method.IsPublic)
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' must be public to be injected.");
+            }
+
+            if (method.ReturnParameter.ParameterType != typeof(void))
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' must have Void return type to be injected. Now it returns '{method.ReturnParameter.ParameterType.FullName}'.");
+            }
+
+            var methodParams = method.GetParameters();
+
+            if (methodParams.Length != codeProvidingMethodArguments.Length)
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' is configured to contain {codeProvidingMethodArguments.Length} parameters but it has {methodParams.Length} parameters.");
+            }
+
+            for (int i = 0; i < methodParams.Length; i++)
+            {
+                if (methodParams[i].Name != codeProvidingMethodArguments[i].Name)
+                {
+                    throw new InvalidOperationException($"Name of {i}. parameter of method '{method.Name}' on type '{methodDeclaringType.FullName}' is configured to be '{codeProvidingMethodArguments[i].Name}' but it is '{methodParams[i].Name}'.");
+                }
+
+                if (methodParams[i].ParameterType != codeProvidingMethodArguments[i].ClrType)
+                {
+                    if (codeProvidingMethodArguments[i].ClrType != null)
+                    {
+                        throw new InvalidOperationException($"Type of {i}. parameter of method '{method.Name}' on type '{methodDeclaringType.FullName}' should be '{codeProvidingMethodArguments[i].ClrType.FullName}' but is '{methodParams[i].ParameterType.FullName}'.");
+                    }
+
+                    if (!methodParams[i].ParameterType.IsGenericParameter)
+                    {
+                        throw new InvalidOperationException($"Parameter '{codeProvidingMethodArguments[i].Name}' of method '{method.Name}' on type '{methodDeclaringType.FullName}' should be generic.");
+                    }
+                }
+            }
+
+            return destinationModule.Import(method);
+        }
+    }
+}

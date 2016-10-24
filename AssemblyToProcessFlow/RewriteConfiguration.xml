@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AssemblyRewriteConfiguration>
+  <Assemblies>
+    <Assembly alias="ExtensibleILRewriter" path="ExtensibleILRewriter.dll" />
+    <Assembly alias="ECSFlowAttributes" path="ECSFlowAttributes.dll" />
+  </Assemblies>
+
+  <Types>
+    <Type alias="InjectedAttributeProvider" name="ECSFlowAttributes.AddAttributeProcessor.InjectedAttributeProvider" assemblyAlias="ECSFlowAttributes" />
+    <Type alias="AddAttributeProcessorConfiguration" name="ExtensibleILRewriter.Processors.AddAttributeProcessorConfiguration" assemblyAlias="ExtensibleILRewriter" />
+
+    <Type alias="MethodInjectionCodeProvider" name="ECSFlowAttributes.MethodCodeInjectingProcessor.MethodInjectionCodeProvider" assemblyAlias="ECSFlowAttributes" />
+    <Type alias="MethodCodeInjectingProcessorConfiguration" name="ExtensibleILRewriter.Processors.Methods.MethodCodeInjectingProcessorConfiguration" assemblyAlias="ExtensibleILRewriter" />
+  </Types>
+
+  <Processors>
+
+    <Processor assemblyAlias="ExtensibleILRewriter" name="ExtensibleILRewriter.Processors.AddAttributeProcessor`1">
+      <GenericArguments>
+        <TypeAlias>AddAttributeProcessorConfiguration</TypeAlias>
+      </GenericArguments>
+      <Properties>
+        <Property key="CustomAttributeProvider" value="InjectedAttributeProvider" />
+      </Properties>
+    </Processor>
+
+    <Processor assemblyAlias="ECSFlowAttributes" name="ECSFlowAttributes.MethodCodeInjectingProcessor.MethodCodeInjectingProcessor">
+      <Properties>
+        <Property key="CodeProvider" value="MethodInjectionCodeProvider" />
+      </Properties>
+    </Processor>
+
+  </Processors>
+</AssemblyRewriteConfiguration>

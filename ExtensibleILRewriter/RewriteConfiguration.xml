@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AssemblyRewriteConfiguration>
+  <Assemblies>
+    <Assembly alias="ExtensibleILRewriter" path="ExtensibleILRewriter.dll" />
+  </Assemblies>
+
+  <Types>
+  </Types>
+
+  <Processors>
+  </Processors>
+</AssemblyRewriteConfiguration>

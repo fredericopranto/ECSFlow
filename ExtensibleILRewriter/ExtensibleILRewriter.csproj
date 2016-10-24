@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B8631325-D271-4581-8D79-6C1BBDB83464}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExtensibleILRewriter</RootNamespace>
+    <AssemblyName>ExtensibleILRewriter</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\ExtensibleILRewriter.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\ExtensibleILRewriter.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeInjection\AttributeProvider.cs" />
+    <Compile Include="CodeInjection\AttributeProviderAttributeArgumentType.cs" />
+    <Compile Include="CodeInjection\AttributeProviderInjectionInfo.cs" />
+    <Compile Include="CodeInjection\AttributeProviderAttributeArgument.cs" />
+    <Compile Include="CodeInjection\AttributeInjector.cs" />
+    <Compile Include="CodeInjection\IAttributeProviderArgument.cs" />
+    <Compile Include="IProcessableComponent.cs" />
+    <Compile Include="Logging\DummyLogger.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="ProcessableComponent.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Processors\Methods\MethodInjectionPlace.cs" />
+    <Compile Include="Processors\AddAttributeProcessor.cs" />
+    <Compile Include="Processors\AddAttributeProcessorConfiguration.cs" />
+    <Compile Include="AssemblyRewriter.cs" />
+    <Compile Include="CodeInjection\CodeProviderCallArgument.cs" />
+    <Compile Include="CodeInjection\CodeProviderCallArgumentType.cs" />
+    <Compile Include="CodeInjection\CodeProvider.cs" />
+    <Compile Include="CodeInjection\CodeProviderInjectionInfo.cs" />
+    <Compile Include="Extensions\TypeReferenceExtensions.cs" />
+    <Compile Include="StateInstanceId.cs" />
+    <Compile Include="StateInstancesCodeGenerator.cs" />
+    <Compile Include="CodeInjection\CodeInjector.cs" />
+    <Compile Include="Processors\Methods\MethodCodeInjectingCodeProviderArgument.cs" />
+    <Compile Include="Processors\Methods\MethodCodeInjectingProcessor.cs" />
+    <Compile Include="Processors\Methods\MethodCodeInjectingProcessorConfiguration.cs" />
+    <Compile Include="Processors\Parameters\ParameterValueHandlingCodeProviderArgument.cs" />
+    <Compile Include="Processors\Parameters\ParameterValueHandlingProcessor.cs" />
+    <Compile Include="Processors\Parameters\ParameterValueHandlingProcessorConfiguration.cs" />
+    <Compile Include="ProcessableComponentType.cs" />
+    <Compile Include="TypeAliasResolver.cs" />
+    <Compile Include="IComponentProcessor.cs" />
+    <Compile Include="ComponentProcessorProperties.cs" />
+    <Compile Include="Extensions\BoolExtensions.cs" />
+    <Compile Include="Extensions\ILoggerExtensions.cs" />
+    <Compile Include="Extensions\MethodDefinitionExtensions.cs" />
+    <Compile Include="StateInstancesManager.cs" />
+    <Compile Include="ComponentProcessorConfiguration.cs" />
+    <Compile Include="Processors\Parameters\NotNullAttributeProcessor.cs" />
+    <Compile Include="Processors\Parameters\NotNullAttribute.cs" />
+    <Compile Include="Extensions\MonoCollection.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="ComponentProcessor.cs" />
+    <Compile Include="Processors\Modules\ModuleInitializerAttribute.cs" />
+    <Compile Include="Processors\Modules\ModuleInitializerProcessor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cecil\Mono.Cecil.csproj">
+      <Project>{d68133bd-1e63-496e-9ede-4fbdbf77b486}</Project>
+      <Name>Mono.Cecil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cecil\rocks\Mono.Cecil.Rocks.csproj">
+      <Project>{fbc6dd59-d09d-499c-b03c-99c1c78ff2ac}</Project>
+      <Name>Mono.Cecil.Rocks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\cecil\symbols\pdb\Mono.Cecil.Pdb.csproj">
+      <Project>{63e6915c-7ea4-4d76-ab28-0d7191eea626}</Project>
+      <Name>Mono.Cecil.Pdb</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="RewriteConfiguration.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="RunRewrite.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Processors\Assemblies\" />
+    <Folder Include="Processors\Types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0-beta008\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <RunRewriteProject>$(ProjectDir)RunRewrite.xml</RunRewriteProject>
+  </PropertyGroup>
+  <Target Name="AfterBuild">
+    <Exec Command="&quot;$(MSBuildToolsPath)\msbuild.exe&quot; &quot;$(RunRewriteProject)&quot; /p:Configuration=$(Configuration);AssemblyPath=&quot;$(ProjectDir)$(OutputPath)$(TargetFileName)&quot;" />
+  </Target>
+</Project>
