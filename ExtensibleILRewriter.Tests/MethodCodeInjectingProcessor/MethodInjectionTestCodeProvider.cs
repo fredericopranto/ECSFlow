@@ -35,7 +35,7 @@ namespace ExtensibleILRewriter.Tests.MethodCodeInjectingProcessor
             state.Items.Add(value.ToString());
         }
 
-        protected override CodeProviderCallArgument[] GetCodeProvidingMethodArguments(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
+        public override CodeProviderCallArgument[] GetCodeProvidingMethodArguments(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
         {
             var parameters = codeProviderArgument.Method.UnderlyingComponent.Parameters;
             if (parameters.Count > 0 && parameters[0].ParameterType.FullName == typeof(int).FullName)
@@ -55,7 +55,7 @@ namespace ExtensibleILRewriter.Tests.MethodCodeInjectingProcessor
             }
         }
 
-        protected override MethodInfo GetCodeProvidingMethod(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
+        public override MethodInfo GetCodeProvidingMethod(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
         {
             var parameters = codeProviderArgument.Method.UnderlyingComponent.Parameters;
             if (parameters.Count > 0 && parameters[0].ParameterType.FullName == typeof(int).FullName)

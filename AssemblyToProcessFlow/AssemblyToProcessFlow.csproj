@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ModuleInitializer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +60,10 @@
     <ProjectReference Include="..\ECSFlowAttributes\ECSFlowAttributes.csproj">
       <Project>{7991B1DC-1DE8-4F5B-9AAA-C2CE5255E1D7}</Project>
       <Name>ECSFlowAttributes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExtensibleILRewriter\ExtensibleILRewriter.csproj">
+      <Project>{B8631325-D271-4581-8D79-6C1BBDB83464}</Project>
+      <Name>ExtensibleILRewriter</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

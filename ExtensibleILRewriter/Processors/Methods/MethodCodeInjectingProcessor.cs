@@ -54,6 +54,11 @@ namespace ExtensibleILRewriter.Processors.Methods
                     case MethodInjectionPlace.Exit:
                         moduleData.CodeInjector.InjectBeforeExit(method.UnderlyingComponent, codeProviderArgument, Logger);
                         break;
+                    case MethodInjectionPlace.InCatchBlock:
+                        moduleData.CodeInjector.InjectInCatchBlock(method.UnderlyingComponent, codeProviderArgument, Logger);
+                        break;
+                    case MethodInjectionPlace.InFinallyBlock:
+                        throw new InvalidOperationException($"Under construction injection place '{injectionPlace}' specified.");
                     case MethodInjectionPlace.Custom:
                         if (CustomInstructionsInjection == null)
                         {

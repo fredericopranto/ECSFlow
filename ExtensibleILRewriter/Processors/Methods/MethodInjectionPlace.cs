@@ -4,6 +4,8 @@
     {
         Begining,
         Exit,
+        InCatchBlock,
+        InFinallyBlock,
         Custom
     }
 }

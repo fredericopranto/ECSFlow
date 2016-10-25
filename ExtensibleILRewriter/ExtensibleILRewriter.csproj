@@ -79,9 +79,6 @@
     <Compile Include="Processors\Methods\MethodCodeInjectingCodeProviderArgument.cs" />
     <Compile Include="Processors\Methods\MethodCodeInjectingProcessor.cs" />
     <Compile Include="Processors\Methods\MethodCodeInjectingProcessorConfiguration.cs" />
-    <Compile Include="Processors\Parameters\ParameterValueHandlingCodeProviderArgument.cs" />
-    <Compile Include="Processors\Parameters\ParameterValueHandlingProcessor.cs" />
-    <Compile Include="Processors\Parameters\ParameterValueHandlingProcessorConfiguration.cs" />
     <Compile Include="ProcessableComponentType.cs" />
     <Compile Include="TypeAliasResolver.cs" />
     <Compile Include="IComponentProcessor.cs" />
@@ -91,7 +88,6 @@
     <Compile Include="Extensions\MethodDefinitionExtensions.cs" />
     <Compile Include="StateInstancesManager.cs" />
     <Compile Include="ComponentProcessorConfiguration.cs" />
-    <Compile Include="Processors\Parameters\NotNullAttributeProcessor.cs" />
     <Compile Include="Processors\Parameters\NotNullAttribute.cs" />
     <Compile Include="Extensions\MonoCollection.cs" />
     <Compile Include="Logging\ILogger.cs" />

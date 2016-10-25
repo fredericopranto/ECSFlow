@@ -1,22 +1,43 @@
 ﻿using ExtensibleILRewriter.CodeInjection;
 using ExtensibleILRewriter.Processors.Methods;
+using Mono.Cecil;
+using Mono.Collections.Generic;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace ECSFlowAttributes.MethodCodeInjectingProcessor
 {
-    internal class MethodInjectionCodeProvider : CodeProvider<MethodCodeInjectingCodeProviderArgument>
+    public class MethodInjectionCodeProvider : CodeProvider<MethodCodeInjectingCodeProviderArgument>
     {
-        public const string InjectAtBeginingPrefix = "InjectAtBegining_";
-        public const string InjectOnExitPrefix = "InjectOnExit_";
-        public const string NoInputItem = "no input";
-
         public override bool HasState { get { return true; } }
+
+        public FieldDefinition StateField { get; set; }
 
         public override bool ShouldBeInjected(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
         {
-            return true;
+
+            var method = codeProviderArgument.Method;
+            var methodName = method.Name;
+            var methodBaseType = method.DeclaringComponent.Name;
+
+
+            var handlers = from t in Assembly.GetExecutingAssembly().CustomAttributes.AsQueryable()
+                           where t.AttributeType.FullName == typeof(ExceptionHandlerAttribute).FullName
+                           select t;
+
+            var matchHandlers = from t in handlers
+                                where t.ConstructorArguments.Any(item => item.Value.ToString().Equals(String.Concat(methodBaseType, ".", (methodName))))
+                                select t;
+
+            foreach (var item in matchHandlers)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public override Type GetStateType()
@@ -26,52 +47,75 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
 
         public static void InjectedMethod_NoValue(State state)
         {
-            state.Items.Add(NoInputItem);
+            MessageBox.Show("No Value");
         }
 
         public static void InjectedMethod_Value(State state, int value)
         {
-            state.Items.Add(value.ToString());
+            MessageBox.Show("Value:" + value);
         }
 
-        
+        public static void OutOfMemoryExceptionHandler(State state)
+        {
+            MessageBox.Show("OutOfMemoryException caught");
+        }
+
         public override CodeProviderCallArgument[] GetCodeProvidingMethodArguments(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
         {
-            var opa = 1;
             var parameters = codeProviderArgument.Method.UnderlyingComponent.Parameters;
+
             if (parameters.Count > 0 && parameters[0].ParameterType.FullName == typeof(int).FullName)
-            {
                 return new CodeProviderCallArgument[]
                    {
                         CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField),
                         CodeProviderCallArgument.CreateParameterArgument("value", typeof(int), codeProviderArgument.Method.UnderlyingComponent.Parameters[0])
                    };
-            }
             else
-            {
                 return new CodeProviderCallArgument[]
-                   {
-                        CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField),
-                   };
-            }
+                       {
+                            CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField),
+                       };
         }
 
         public override MethodInfo GetCodeProvidingMethod(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
         {
+            var method = codeProviderArgument.Method;
+            var methodName = method.Name;
+            var methodBaseType = method.DeclaringComponent.Name;
+            var methodCall = "";
+
+
+            var handlers = from t in Assembly.GetExecutingAssembly().CustomAttributes.AsQueryable()
+                           where t.AttributeType.FullName == typeof(ExceptionHandlerAttribute).FullName
+                           select t;
+
+            var matchHandlers = from t in handlers
+                                where t.ConstructorArguments.Any(item => item.Value.ToString().Equals(String.Concat(methodBaseType, ".", (methodName))))
+                                select t;
+
+            foreach (var item in matchHandlers)
+            {
+                methodCall = item.ConstructorArguments.Last().Value.ToString();
+            }
+
             var parameters = codeProviderArgument.Method.UnderlyingComponent.Parameters;
             if (parameters.Count > 0 && parameters[0].ParameterType.FullName == typeof(int).FullName)
             {
-                return GetType().GetMethod(nameof(InjectedMethod_Value));
+                //return typeof(AssemblyToProcessMapping).GetMethod(nameof(AssemblyToProcessMapping.InjectedMethod_NoValue));
+                var call = GetType().GetMethod(methodCall);
+                return call;
             }
             else
             {
-                return GetType().GetMethod(nameof(InjectedMethod_NoValue));
+                //return typeof(AssemblyToProcessMapping).GetMethod(nameof(AssemblyToProcessMapping.InjectedMethod_NoValue));
+                var call = GetType().GetMethod(methodCall);
+                return call;
             }
         }
 
-        internal class State
+        public class State
         {
-            public List<string> Items { get; } = new List<string>();
+            public List<object> Items { get; } = new List<object>();
         }
     }
 }

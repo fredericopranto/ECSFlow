@@ -1,12 +1,18 @@
 ﻿using ExtensibleILRewriter.CodeInjection;
 using Mono.Cecil;
 using System;
+using System.Collections.Generic;
 
 namespace ExtensibleILRewriter.Tests.AddAttributeProcessor
 {
     public class InjectedAttributeProvider : AttributeProvider
     {
-        protected override AttributeProviderAttributeArgument[] GetAttributeArguments(IProcessableComponent component, Attribute attr)
+        public override IEnumerable<Type> GetAttributeMapping(IProcessableComponent component)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override AttributeProviderAttributeArgument[] GetAttributeArguments(IProcessableComponent component, Type attr)
         {
             var typeDefinition = component.Type == ProcessableComponentType.Type ? ((TypeDefinition)component.UnderlyingComponent) : null;
 
@@ -36,7 +42,7 @@ namespace ExtensibleILRewriter.Tests.AddAttributeProcessor
             }
         }
 
-        protected override Type GetAttributeType(IProcessableComponent component)
+        protected override Type GetAttributeType(IProcessableComponent component, Type attr)
         {
             if (component.Name.StartsWith(AddAttributeProcessorTests.InjectAttribute1Prefix))
             {
@@ -52,7 +58,7 @@ namespace ExtensibleILRewriter.Tests.AddAttributeProcessor
             }
         }
 
-        protected override bool ShouldBeInjected(IProcessableComponent component, Attribute att)
+        protected override bool ShouldBeInjected(IProcessableComponent component, Type att)
         {
             return component.Name.StartsWith(AddAttributeProcessorTests.InjectAttribute1Prefix) || component.Name.StartsWith(AddAttributeProcessorTests.InjectAttribute2Prefix);
         }

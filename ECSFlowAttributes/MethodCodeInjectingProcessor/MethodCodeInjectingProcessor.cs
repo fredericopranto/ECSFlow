@@ -18,11 +18,7 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
             var name = method.Name;
             if (true)
             {
-                return MethodInjectionPlace.Begining;
-            }
-            else if (name.StartsWith(MethodInjectionCodeProvider.InjectOnExitPrefix))
-            {
-                return MethodInjectionPlace.Exit;
+                return MethodInjectionPlace.InCatchBlock;
             }
             else
             {
@@ -34,7 +30,7 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
 
         protected override string GetStateInstanceName(MethodProcessableComponent method)
         {
-            return "TestsInjectionState";
+            return "ECSFlowInjectionState";
         }
     }
 }

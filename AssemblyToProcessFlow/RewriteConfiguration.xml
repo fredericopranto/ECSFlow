@@ -14,6 +14,7 @@
   </Types>
 
   <Processors>
+    <Processor assemblyAlias="ExtensibleILRewriter" name="ExtensibleILRewriter.Processors.Modules.ModuleInitializerProcessor" />
 
     <Processor assemblyAlias="ExtensibleILRewriter" name="ExtensibleILRewriter.Processors.AddAttributeProcessor`1">
       <GenericArguments>

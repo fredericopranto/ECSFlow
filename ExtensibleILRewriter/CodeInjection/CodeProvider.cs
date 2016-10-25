@@ -1,4 +1,5 @@
 ﻿using ExtensibleILRewriter.Extensions;
+using ExtensibleILRewriter.Processors.Methods;
 using ExtensibleILRewriter.Processors.Parameters;
 using Mono.Cecil;
 using System;
@@ -39,20 +40,34 @@ namespace ExtensibleILRewriter.CodeInjection
             }
         }
 
-        public CodeProviderInjectionInfo GetCallInfo(CodeProviderArgumentType codeProviderArgument, ModuleDefinition destinationModule)
+        public CodeProviderInjectionInfo GetCallInfo(MethodCodeInjectingCodeProviderArgument codeProviderArgument, ModuleDefinition destinationModule)
         {
+            /*
             var methodInfo = GetCodeProvidingMethod(codeProviderArgument);
-            var opa2 = codeProviderArgument;
-            try
+            var methodArguments = GetCodeProvidingMethodArguments(codeProviderArgument) ?? CodeProviderCallArgument.EmptyCollection;
+            var methodReference = GetAndCheckCodeProvidingMethodReference(methodInfo, methodArguments, destinationModule);
+            */
+
+            var methodInfo = GetCodeProvidingMethod(codeProviderArgument);
+            var methodArguments = CodeProviderCallArgument.EmptyCollection;
+
+            var parameters = codeProviderArgument.Method.UnderlyingComponent.Parameters;
+            if (parameters.Count > 0 && parameters[0].ParameterType.FullName == typeof(int).FullName)
             {
-                var opa = GetCodeProvidingMethodArguments(opa2);
+                methodArguments = new CodeProviderCallArgument[]
+                   {
+                        CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField),
+                        CodeProviderCallArgument.CreateParameterArgument("value", typeof(int), codeProviderArgument.Method.UnderlyingComponent.Parameters[0])
+                   };
             }
-            catch (Exception e)
+            else
             {
-                var opa = e;
+                methodArguments = new CodeProviderCallArgument[]
+                   {
+                        CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField)
+                   };
             }
 
-            var methodArguments = CodeProviderCallArgument.EmptyCollection;
             var methodReference = GetAndCheckCodeProvidingMethodReference(methodInfo, methodArguments, destinationModule);
 
             if (methodReference.ContainsGenericParameter)
@@ -67,11 +82,11 @@ namespace ExtensibleILRewriter.CodeInjection
             return new CodeProviderInjectionInfo(methodReference, methodArguments);
         }
 
-        public abstract MethodInfo GetCodeProvidingMethod(CodeProviderArgumentType codeProviderArgument);
+        public abstract MethodInfo GetCodeProvidingMethod(MethodCodeInjectingCodeProviderArgument codeProviderArgument);
 
-        public abstract CodeProviderCallArgument[] GetCodeProvidingMethodArguments(CodeProviderArgumentType codeProviderArgument);
+        public abstract CodeProviderCallArgument[] GetCodeProvidingMethodArguments(MethodCodeInjectingCodeProviderArgument codeProviderArgument);
 
-        public virtual TypeReference[] GetCodeProvidingMethodGenericArgumentTypes(CodeProviderArgumentType codeProviderArgument)
+        public virtual TypeReference[] GetCodeProvidingMethodGenericArgumentTypes(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
         {
             throw new NotImplementedException($"For usage of generic code providing method {nameof(GetCodeProvidingMethodGenericArgumentTypes)} must be properly implemented.");
         }

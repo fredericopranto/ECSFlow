@@ -1,5 +1,6 @@
 ﻿using ExtensibleILRewriter.Extensions;
 using ExtensibleILRewriter.Logging;
+using ExtensibleILRewriter.Processors.Methods;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Collections.Generic;
@@ -26,7 +27,7 @@ namespace ExtensibleILRewriter.CodeInjection
             return codeProvider.ShouldBeInjected(codeProviderArgument);
         }
 
-        public void InjectAtBegining(MethodDefinition method, CodeProviderArgumentType codeProviderArgument, ILogger logger)
+        public void InjectAtBegining(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger)
         {
             Inject(
                 method,
@@ -35,7 +36,7 @@ namespace ExtensibleILRewriter.CodeInjection
                 (body, newInstructions) => body.AddInstructionsToBegining(newInstructions));
         }
 
-        public void InjectBeforeExit(MethodDefinition method, CodeProviderArgumentType codeProviderArgument, ILogger logger)
+        public void InjectBeforeExit(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger)
         {
             Inject(
                 method,
@@ -44,7 +45,21 @@ namespace ExtensibleILRewriter.CodeInjection
                 (body, newInstructions) => body.AddInstructionsBeforeExit(newInstructions));
         }
 
-        public void Inject(MethodDefinition method, CodeProviderArgumentType codeProviderArgument, ILogger logger, CustomInstructionsInjection injectNewInstructions)
+        public void InjectInCatchBlock(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger)
+        {
+            Inject(
+                method,
+                codeProviderArgument,
+                logger,
+                (body, newInstructions) => body.AddInstructionsInCatchBlock(newInstructions));
+        }
+
+        public void InjectInFinallyBlock(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger)
+        {
+            throw new InvalidOperationException($"Under construction injection place specified.");
+        }
+
+        public void Inject(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger, CustomInstructionsInjection injectNewInstructions)
         {
             var callInfo = codeProvider.GetCallInfo(codeProviderArgument, method.Module);
 
