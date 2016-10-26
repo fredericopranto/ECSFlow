@@ -15,18 +15,8 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
         
         protected override MethodInjectionPlace GetInjectionPlace(MethodProcessableComponent method)
         {
-            var name = method.Name;
-            if (true)
-            {
-                return MethodInjectionPlace.InCatchBlock;
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
+            return MethodInjectionPlace.InCatchBlock;
         }
-
-        
 
         protected override string GetStateInstanceName(MethodProcessableComponent method)
         {

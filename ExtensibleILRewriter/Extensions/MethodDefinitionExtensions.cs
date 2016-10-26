@@ -2,6 +2,7 @@
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using Mono.Collections.Generic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -100,7 +101,7 @@ namespace ExtensibleILRewriter.Extensions
             body.OptimizeMacros();
         }
 
-        public static void AddInstructionsInCatchBlock(this MethodBody body, Collection<Instruction> newInstructions)
+        public static void AddInstructionsInCatchBlock(this MethodBody body, Collection<Instruction> newInstructions, MethodReference methodCall)
         {
             body.SimplifyMacros();
 
@@ -137,6 +138,31 @@ namespace ExtensibleILRewriter.Extensions
             }
 
             body.OptimizeMacros();
+
+            var il = body.GetILProcessor();
+
+            var write = il.Create(
+                OpCodes.Call, body.Method.Module.Import(methodCall));
+            var ret = il.Create(OpCodes.Ret);
+            var leave = il.Create(OpCodes.Leave, ret);
+
+            il.InsertAfter(
+                body.Instructions.Last(),
+                write);
+
+            il.InsertAfter(write, leave);
+            il.InsertAfter(leave, ret);
+
+            var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
+            {
+                TryStart = body.Instructions.First(),
+                TryEnd = write,
+                HandlerStart = write,
+                HandlerEnd = ret,
+                CatchType = body.Method.Module.Import(typeof(Exception)),
+            };
+
+            body.ExceptionHandlers.Add(handler);
         }
 
         private static bool AccessesThis(MethodBody methodBody)

@@ -1,4 +1,5 @@
-﻿using ExtensibleILRewriter.Logging;
+﻿using ExtensibleILRewriter;
+using ExtensibleILRewriter.Logging;
 using ExtensibleILRewriter.MsBuild;
 using System;
 using System.IO;
@@ -34,6 +35,9 @@ namespace TestRewriter
                 ConfigurationPath = Path.Combine( projectBinariesPath, @"..\..\RewriteConfiguration.xml")
             };
             rewriteTask.Execute(rewrittenAssemblyPath, new ConsoleLogger());
+
+            Verifier.Verify(assemblyToRewritePath, rewrittenAssemblyPath);
+            Console.WriteLine("Weaving verified");
 
             Console.WriteLine();
             Console.WriteLine("Done");

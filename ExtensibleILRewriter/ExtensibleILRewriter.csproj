@@ -58,7 +58,9 @@
     <Compile Include="CodeInjection\AttributeProviderInjectionInfo.cs" />
     <Compile Include="CodeInjection\AttributeProviderAttributeArgument.cs" />
     <Compile Include="CodeInjection\AttributeInjector.cs" />
+    <Compile Include="CodeInjection\CecilExtensions.cs" />
     <Compile Include="CodeInjection\IAttributeProviderArgument.cs" />
+    <Compile Include="CodeInjection\ReturnFixer.cs" />
     <Compile Include="IProcessableComponent.cs" />
     <Compile Include="Logging\DummyLogger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
@@ -95,6 +97,8 @@
     <Compile Include="Processors\Modules\ModuleInitializerAttribute.cs" />
     <Compile Include="Processors\Modules\ModuleInitializerProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CodeInjection\WeavingException.cs" />
+    <Compile Include="Verifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cecil\Mono.Cecil.csproj">

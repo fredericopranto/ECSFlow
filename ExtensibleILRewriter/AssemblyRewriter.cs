@@ -179,6 +179,7 @@ namespace ExtensibleILRewriter
                 catch (Exception e)
                 {
                     logger.Error($"There was an error while processing '{component.FullName}' with processor '{processor}'. CurrentDir: '{Environment.CurrentDirectory}'. Exception: {e}");
+                    throw new Exception();
                 }
             }
         }

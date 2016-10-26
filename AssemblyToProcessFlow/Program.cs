@@ -7,7 +7,9 @@ namespace ECSFlow
     {
          static void Main(string[] args)
         {
+            Console.WriteLine("Init Main");
             A();
+            Console.WriteLine("End Main");
         }
 
         public static void A()

@@ -49,13 +49,13 @@ namespace ExtensibleILRewriter.Processors.Methods
                 switch (injectionPlace)
                 {
                     case MethodInjectionPlace.Begining:
-                        moduleData.CodeInjector.InjectAtBegining(method.UnderlyingComponent, codeProviderArgument, Logger);
+                        moduleData.CodeInjector.InjectAtBegining(method.UnderlyingComponent, codeProviderArgument, Logger, injectionPlace);
                         break;
                     case MethodInjectionPlace.Exit:
-                        moduleData.CodeInjector.InjectBeforeExit(method.UnderlyingComponent, codeProviderArgument, Logger);
+                        moduleData.CodeInjector.InjectBeforeExit(method.UnderlyingComponent, codeProviderArgument, Logger, injectionPlace);
                         break;
                     case MethodInjectionPlace.InCatchBlock:
-                        moduleData.CodeInjector.InjectInCatchBlock(method.UnderlyingComponent, codeProviderArgument, Logger);
+                        moduleData.CodeInjector.InjectInCatchBlock(method.UnderlyingComponent, codeProviderArgument, Logger, injectionPlace);
                         break;
                     case MethodInjectionPlace.InFinallyBlock:
                         throw new InvalidOperationException($"Under construction injection place '{injectionPlace}' specified.");
@@ -65,7 +65,7 @@ namespace ExtensibleILRewriter.Processors.Methods
                             throw new InvalidOperationException($"If you want to use {nameof(MethodInjectionPlace)}.{nameof(MethodInjectionPlace.Custom)} you need to set value to {nameof(CustomInstructionsInjection)} property.");
                         }
 
-                        moduleData.CodeInjector.Inject(method.UnderlyingComponent, codeProviderArgument, Logger, CustomInstructionsInjection);
+                        moduleData.CodeInjector.Inject(method.UnderlyingComponent, codeProviderArgument, Logger, injectionPlace, CustomInstructionsInjection);
                         break;
                     default:
                         throw new InvalidOperationException($"Unknown injection place '{injectionPlace}' specified.");
