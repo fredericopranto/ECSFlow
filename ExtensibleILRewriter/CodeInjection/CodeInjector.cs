@@ -21,7 +21,7 @@ namespace ExtensibleILRewriter.CodeInjection
             this.codeProvider = codeProvider;
         }
 
-        public delegate void CustomInstructionsInjection(MethodBody body, Collection<Instruction> newInstructions);
+        public delegate void CustomInstructionsInjection(MethodBody body, Collection<Instruction> newInstructions, MethodDefinition methodCall);
 
         public bool ShouldBeCallInjected(CodeProviderArgumentType codeProviderArgument)
         {
@@ -34,7 +34,7 @@ namespace ExtensibleILRewriter.CodeInjection
                 method,
                 codeProviderArgument,
                 logger, injectionPlace,
-                (body, newInstructions) => body.AddInstructionsToBegining(newInstructions));
+                (body, newInstructions, call) => body.AddInstructionsToBegining(newInstructions));
         }
 
         public void InjectBeforeExit(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger, MethodInjectionPlace injectionPlace)
@@ -43,7 +43,7 @@ namespace ExtensibleILRewriter.CodeInjection
                 method,
                 codeProviderArgument,
                 logger, injectionPlace,
-                (body, newInstructions) => body.AddInstructionsBeforeExit(newInstructions));
+                (body, newInstruction, call) => body.AddInstructionsBeforeExit(newInstructions));
         }
 
         public void InjectInCatchBlock(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger, MethodInjectionPlace injectionPlace)
@@ -52,7 +52,7 @@ namespace ExtensibleILRewriter.CodeInjection
                 method,
                 codeProviderArgument,
                 logger, injectionPlace,
-                (body, newInstructions) => body.AddInstructionsInCatchBlock(newInstructions, method));
+                (body, newInstruction, call) => body.AddInstructionsInCatchBlock(newInstruction, call));
         }
 
         public void InjectInFinallyBlock(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger)
@@ -82,7 +82,7 @@ namespace ExtensibleILRewriter.CodeInjection
                 GenerateInstructionsForInjectedCall(newInstructions, callInfo.MethodReferenceToBeCalled, callInfo.CallArguments);
             }
 
-            injectNewInstructions(method.Body, newInstructions);
+            injectNewInstructions(method.Body, newInstructions, callInfo.MethodReferenceToBeCalled.Resolve());
         }
 
         private static void GenerateInstructionsForInjectedCall(Collection<Instruction> instructions, MethodReference methodCall, CodeProviderCallArgument[] arguments)

@@ -82,7 +82,7 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
             var method = codeProviderArgument.Method;
             var methodName = method.Name;
             var methodBaseType = method.DeclaringComponent.Name;
-            var methodCall = "";
+            var methodCall = string.Empty;
 
 
             var handlers = from t in Assembly.GetExecutingAssembly().CustomAttributes.AsQueryable()
