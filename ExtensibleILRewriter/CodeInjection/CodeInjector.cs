@@ -102,71 +102,7 @@ namespace ExtensibleILRewriter.CodeInjection
                 instructions.Add(arg.GenerateLoadInstruction());
             }
 
-            instructions.Add(Instruction.Create(OpCodes.Call, methodCall));
-
-            /*
-            foreach (var arg in arguments)
-            {
-                instructions.Add(arg.GenerateLoadInstruction());
-            }*/
-
-            /*
-            
-
-            var returnFixer = new ReturnFixer
-            {
-                Method = method
-            };
-            returnFixer.MakeLastStatementReturn();
-
-            // Create a basic Try/Cacth Block
-            var tryBlockLeaveInstructions = Instruction.Create(OpCodes.Leave, returnFixer.NopBeforeReturn);
-            var catchBlockLeaveInstructions = Instruction.Create(OpCodes.Leave, returnFixer.NopBeforeReturn);
-
-            // Get the first instruction to surround the Try/Catch Block
-            var methodBodyFirstInstruction = GetMethodBodyFirstInstruction(method);
-
-            instructions.Add(Instruction.Create(OpCodes.Call, methodCall));
-            var catchBlockInstructions = instructions;
-            var ilProcessor = method.Body.GetILProcessor();
-            ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
-            ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
-            
-            var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
-            {
-                CatchType = method.Module.Import(typeof(System.Exception)),
-                TryStart = methodBodyFirstInstruction,
-                TryEnd = tryBlockLeaveInstructions.Previous,
-                HandlerStart = catchBlockInstructions.First(),
-                HandlerEnd = catchBlockInstructions.Last().Next
-            };
-
-            method.Body.ExceptionHandlers.Add(handler);
-            */
-
-            /*
-            var il = method.Body.GetILProcessor();
-
-            var write = il.Create(OpCodes.Call, methodCall);
-            var ret = il.Create(OpCodes.Ret);
-            var leave = il.Create(OpCodes.Leave, ret);
-
-            il.InsertAfter(method.Body.Instructions.Last(), write);
-
-            il.InsertAfter(write, leave);
-            il.InsertAfter(leave, ret);
-
-            var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
-            {
-                TryStart = method.Body.Instructions.First(),
-                TryEnd = write,
-                HandlerStart = write,
-                HandlerEnd = ret,
-                CatchType = method.Module.Import(typeof(Exception)),
-            };
-
-            method.Body.ExceptionHandlers.Add(handler);
-            */
+            instructions.Add(Instruction.Create(OpCodes.Call, method.Module.Import(typeof(Console).GetMethod("WriteLine", new[] { typeof(object) }))));
         }
 
         private static Instruction GetMethodBodyFirstInstruction(MethodDefinition method)
