@@ -1,7 +1,6 @@
 ﻿using ExtensibleILRewriter.CodeInjection;
 using ExtensibleILRewriter.Processors.Methods;
 using Mono.Cecil;
-using Mono.Collections.Generic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,9 +54,9 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
             MessageBox.Show("Value:" + value);
         }
 
-        public static void OutOfMemoryExceptionHandler(State state)
+        public static void OutOfMemoryExceptionHandler(State state, object value)
         {
-            MessageBox.Show("OutOfMemoryException caught");
+            MessageBox.Show("OutOfMemoryException caught:" + value.ToString());
         }
 
         public override CodeProviderCallArgument[] GetCodeProvidingMethodArguments(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
@@ -99,23 +98,19 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
             }
 
             var parameters = codeProviderArgument.Method.UnderlyingComponent.Parameters;
-            if (parameters.Count > 0 && parameters[0].ParameterType.FullName == typeof(int).FullName)
-            {
-                //return typeof(AssemblyToProcessMapping).GetMethod(nameof(AssemblyToProcessMapping.InjectedMethod_NoValue));
-                var call = GetType().GetMethod(methodCall);
-                return call;
-            }
-            else
-            {
-                //return typeof(AssemblyToProcessMapping).GetMethod(nameof(AssemblyToProcessMapping.InjectedMethod_NoValue));
-                var call = GetType().GetMethod(methodCall);
-                return call;
-            }
+
+            var call = GetType().GetMethod(methodCall);
+            return call;
         }
 
-        public class State
+        public override MethodDefinition GetCodeProvidingMethoDefinition(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
         {
-            public List<object> Items { get; } = new List<object>();
+            throw new NotImplementedException();
         }
+    }
+
+    public class State
+    {
+        public List<object> Items { get; } = new List<object>();
     }
 }

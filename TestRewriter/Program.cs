@@ -17,7 +17,10 @@ namespace TestRewriter
 
         private static void Main(string[] args)
         {
-            const string ProjectName = "AssemblyToProcessFlow";
+            //const string ProjectName = "AssemblyToProcessFlow";
+
+            const string ProjectName = "Ascgen2";
+
             const string ProjectExtension = ".exe";
 
             var executingAssemblyLocation = Assembly.GetExecutingAssembly().Location;
@@ -36,8 +39,9 @@ namespace TestRewriter
             };
             rewriteTask.Execute(rewrittenAssemblyPath, new ConsoleLogger());
 
-            Verifier.Verify(assemblyToRewritePath, rewrittenAssemblyPath);
+            var result = Verifier.Verify(assemblyToRewritePath, rewrittenAssemblyPath);
             Console.WriteLine("Weaving verified");
+            Console.WriteLine(result);
 
             Console.WriteLine();
             Console.WriteLine("Done");

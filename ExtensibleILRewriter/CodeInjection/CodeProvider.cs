@@ -1,8 +1,12 @@
-﻿using ExtensibleILRewriter.Extensions;
+﻿using ECSFlowAttributes;
+using ExtensibleILRewriter.Extensions;
 using ExtensibleILRewriter.Processors.Methods;
 using ExtensibleILRewriter.Processors.Parameters;
 using Mono.Cecil;
+using Mono.Collections.Generic;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -40,49 +44,74 @@ namespace ExtensibleILRewriter.CodeInjection
             }
         }
 
-        public CodeProviderInjectionInfo GetCallInfo(MethodCodeInjectingCodeProviderArgument codeProviderArgument, ModuleDefinition destinationModule)
+        public List<CodeProviderInjectionInfo> GetCallInfo(MethodCodeInjectingCodeProviderArgument codeProviderArgument, ModuleDefinition destinationModule)
         {
-            /*
-            var methodInfo = GetCodeProvidingMethod(codeProviderArgument);
-            var methodArguments = GetCodeProvidingMethodArguments(codeProviderArgument) ?? CodeProviderCallArgument.EmptyCollection;
-            var methodReference = GetAndCheckCodeProvidingMethodReference(methodInfo, methodArguments, destinationModule);
-            */
+            List<MethodDefinition> methods = GetCodeProvidingMethoDefinition(codeProviderArgument);
+            List<CodeProviderInjectionInfo> returnCallInfo = new List<CodeProviderInjectionInfo>();
 
-            var methodInfo = GetCodeProvidingMethod(codeProviderArgument);
-            var methodArguments = CodeProviderCallArgument.EmptyCollection;
+            foreach (var methodInfo in methods)
+            {
+                var methodArguments = CodeProviderCallArgument.EmptyCollection;
 
-            var parameters = codeProviderArgument.Method.UnderlyingComponent.Parameters;
-            if (parameters.Count > 0 && parameters[0].ParameterType.FullName == typeof(int).FullName)
-            {
+                /*
+                 methodArguments = new CodeProviderCallArgument[]
+                           {
+                            CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField),
+                            CodeProviderCallArgument.CreateParameterArgument("value", typeof(Exception), methodInfo.Parameters[1])
+                           };
+                 */
+
                 methodArguments = new CodeProviderCallArgument[]
-                   {
-                        CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField),
-                        CodeProviderCallArgument.CreateParameterArgument("value", typeof(int), codeProviderArgument.Method.UnderlyingComponent.Parameters[0])
-                   };
-            }
-            else
-            {
-                methodArguments = new CodeProviderCallArgument[]
-                   {
+                              {
                         CodeProviderCallArgument.CreateStateArgument("state", GetStateType(), codeProviderArgument.StateField)
-                   };
+                              };
+
+                var methodReference = GetAndCheckCodeProvidingMethodReferenceDefinition(methodInfo, methodArguments, destinationModule);
+
+                if (methodReference.ContainsGenericParameter)
+                {
+                    var genericArgumentTypes = GetCodeProvidingMethodGenericArgumentTypes(codeProviderArgument);
+                    var genericMethod = new GenericInstanceMethod(methodReference);
+                    genericMethod.GenericArguments.AddRange(genericArgumentTypes);
+                    methodReference = genericMethod;
+                }
+
+                CheckCodeProvidingMethodArguments(methodArguments);
+                returnCallInfo.Add(new CodeProviderInjectionInfo(methodReference, methodArguments));
             }
 
-            var methodReference = GetAndCheckCodeProvidingMethodReference(methodInfo, methodArguments, destinationModule);
-
-            if (methodReference.ContainsGenericParameter)
-            {
-                var genericArgumentTypes = GetCodeProvidingMethodGenericArgumentTypes(codeProviderArgument);
-                var genericMethod = new GenericInstanceMethod(methodReference);
-                genericMethod.GenericArguments.AddRange(genericArgumentTypes);
-                methodReference = genericMethod;
-            }
-
-            CheckCodeProvidingMethodArguments(methodArguments);
-            return new CodeProviderInjectionInfo(methodReference, methodArguments);
+            return returnCallInfo;
         }
 
         public abstract MethodInfo GetCodeProvidingMethod(MethodCodeInjectingCodeProviderArgument codeProviderArgument);
+
+        public List<MethodDefinition> GetCodeProvidingMethoDefinition(MethodCodeInjectingCodeProviderArgument codeProviderArgument)
+        {
+            var method = codeProviderArgument.Method;
+            var methodName = method.Name;
+            var methodBaseType = method.DeclaringComponent.Name;
+            var methodCall = string.Empty;
+
+            var handlers = from t in AssemblyDefinition.ReadAssembly(Assembly.GetExecutingAssembly().Location).
+                             CustomAttributes.AsQueryable()
+                           where t.AttributeType.FullName == typeof(ExceptionHandlerAttribute).FullName
+                           select t;
+
+            var matchHandlers = from t in handlers
+                                where t.ConstructorArguments.Any(item => item.Value.ToString().Equals(String.Concat(methodBaseType, ".", methodName)))
+                                select t;
+
+            var returnMethods = new List<MethodDefinition>();
+
+            foreach (var item in matchHandlers)
+            {
+                methodCall = item.ConstructorArguments.Last().Value.ToString();
+                var type = AssemblyDefinition.ReadAssembly(Assembly.GetExecutingAssembly().Location).MainModule.Types.First(x => x.Name == "MethodInjectionCodeProvider");
+                returnMethods.Add(type.Methods.First(x => x.Name == methodCall));
+            }
+
+            return returnMethods;
+        }
 
         public abstract CodeProviderCallArgument[] GetCodeProvidingMethodArguments(MethodCodeInjectingCodeProviderArgument codeProviderArgument);
 
@@ -135,6 +164,58 @@ namespace ExtensibleILRewriter.CodeInjection
                     {
                         throw new InvalidOperationException($"Parameter '{codeProvidingMethodArguments[i].Name}' of method '{method.Name}' on type '{methodDeclaringType.FullName}' should be generic.");
                     }
+                }
+            }
+
+            return destinationModule.Import(method);
+        }
+
+        public MethodReference GetAndCheckCodeProvidingMethodReferenceDefinition([NotNull]MethodDefinition method, [NotNull]CodeProviderCallArgument[] codeProvidingMethodArguments, [NotNull]ModuleDefinition destinationModule)
+        {
+            var methodDeclaringType = method.DeclaringType;
+
+            if (!method.IsStatic)
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' must be static to be injected.");
+            }
+
+            if (!method.IsPublic)
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' must be public to be injected.");
+            }
+
+            if (method.ReturnType.FullName != typeof(void).FullName)
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' must have Void return type to be injected. Now it returns '{method.ReturnType.GetType().FullName}'.");
+            }
+
+            var methodParams = method.Parameters;
+
+            if (methodParams.Count != codeProvidingMethodArguments.Length)
+            {
+                throw new InvalidOperationException($"Method '{method.Name}' on type '{methodDeclaringType.FullName}' is configured to contain {codeProvidingMethodArguments.Length} parameters but it has {methodParams.Count} parameters.");
+            }
+
+            for (int i = 0; i < methodParams.Count; i++)
+            {
+                if (methodParams[i].Name != codeProvidingMethodArguments[i].Name)
+                {
+                    throw new InvalidOperationException($"Name of {i}. parameter of method '{method.Name}' on type '{methodDeclaringType.FullName}' is configured to be '{codeProvidingMethodArguments[i].Name}' but it is '{methodParams[i].Name}'.");
+                }
+
+                if (methodParams[i].ParameterType.FullName != codeProvidingMethodArguments[i].ClrType.FullName)
+                {
+                    /*
+                    if (codeProvidingMethodArguments[i].ClrType != null)
+                    {
+                        throw new InvalidOperationException($"Type of {i}. parameter of method '{method.Name}' on type '{methodDeclaringType.FullName}' should be '{codeProvidingMethodArguments[i].ClrType.FullName}' but is '{methodParams[i].ParameterType.FullName}'.");
+                    }
+
+                    if (!methodParams[i].ParameterType.IsGenericParameter)
+                    {
+                        throw new InvalidOperationException($"Parameter '{codeProvidingMethodArguments[i].Name}' of method '{method.Name}' on type '{methodDeclaringType.FullName}' should be generic.");
+                    } 
+                    */
                 }
             }
 

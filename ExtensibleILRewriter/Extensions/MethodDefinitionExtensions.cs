@@ -1,4 +1,5 @@
-﻿using Mono.Cecil;
+﻿using ExtensibleILRewriter.CodeInjection;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
 using Mono.Collections.Generic;
@@ -103,6 +104,8 @@ namespace ExtensibleILRewriter.Extensions
 
         public static void AddInstructionsInCatchBlock(this MethodBody body, Collection<Instruction> newInstructions, MethodReference methodCall)
         {
+            /*
+            
             body.SimplifyMacros();
 
             var instructions = body.Instructions;
@@ -137,12 +140,19 @@ namespace ExtensibleILRewriter.Extensions
                 }
             }
 
+            // instructions.RemoveAt(14);
+            // instructions.Add(body.GetILProcessor().Create(OpCodes.Leave));
             body.OptimizeMacros();
+
+            */
+
+            /*
 
             var il = body.GetILProcessor();
 
-            var write = il.Create(
-                OpCodes.Call, body.Method.Module.Import(methodCall));
+            var write = il.Create(OpCodes.Call, body.Method.Module.Import(methodCall));
+            
+            // var write = il.Create(OpCodes.Call, body.Method.Module.Import(typeof(Console).GetMethod("WriteLine", new[] { typeof(object) })));
             var ret = il.Create(OpCodes.Ret);
             var leave = il.Create(OpCodes.Leave, ret);
 
@@ -163,6 +173,72 @@ namespace ExtensibleILRewriter.Extensions
             };
 
             body.ExceptionHandlers.Add(handler);
+            */
+
+            body.SimplifyMacros();
+
+            var ilProcessor = body.GetILProcessor();
+
+            var returnFixer = new ReturnFixer
+            {
+                Method = body.Method
+            };
+            returnFixer.MakeLastStatementReturn();
+
+            // Create a basic Try/Cacth Block
+            var tryBlockLeaveInstructions = Instruction.Create(OpCodes.Leave, returnFixer.NopBeforeReturn);
+            var catchBlockLeaveInstructions = Instruction.Create(OpCodes.Leave, returnFixer.NopBeforeReturn);
+
+            // Get the first instruction to surround the Try/Catch Block
+            var methodBodyFirstInstruction = GetMethodBodyFirstInstruction(body);
+
+            var catchBlockInstructions = GetCatchInstructions(catchBlockLeaveInstructions, body.Method.Module.Import(methodCall)).ToList();
+            ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, tryBlockLeaveInstructions);
+            ilProcessor.InsertBefore(returnFixer.NopBeforeReturn, catchBlockInstructions);
+
+            var ExType = Type.GetType("System." + methodCall.Name);
+
+            if (ExType == null)
+            {
+                ExType = Type.GetType("System.IO." + methodCall.Name);
+            }
+
+            var handler = new ExceptionHandler(ExceptionHandlerType.Catch)
+            {
+                CatchType = body.Method.Module.Import(ExType),
+                TryStart = methodBodyFirstInstruction,
+                TryEnd = tryBlockLeaveInstructions.Next,
+                HandlerStart = catchBlockInstructions.First(),
+                HandlerEnd = catchBlockInstructions.Last().Next
+            };
+
+            body.ExceptionHandlers.Add(handler);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="catchBlockLeaveInstructions"></param>
+        /// <returns></returns>
+        public static IEnumerable<Instruction> GetCatchInstructions(Instruction catchBlockLeaveInstructions, MethodReference def)
+        {
+            yield return Instruction.Create(OpCodes.Call, def);
+            yield return Instruction.Create(OpCodes.Nop);
+            yield return catchBlockLeaveInstructions;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Instruction GetMethodBodyFirstInstruction(MethodBody Body)
+        {
+            if (Body.Method.IsConstructor)
+            {
+                return Body.Instructions.First(i => i.OpCode == OpCodes.Call).Next;
+            }
+
+            return Body.Instructions.First();
         }
 
         private static bool AccessesThis(MethodBody methodBody)

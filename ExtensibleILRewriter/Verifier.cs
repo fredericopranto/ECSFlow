@@ -7,11 +7,11 @@ namespace ExtensibleILRewriter
 {
     public static class Verifier
     {
-        public static void Verify(string beforeAssemblyPath, string afterAssemblyPath)
+        public static string Verify(string beforeAssemblyPath, string afterAssemblyPath)
         {
             var before = Validate(beforeAssemblyPath);
             var after = Validate(afterAssemblyPath);
-            var message = string.Format("Failed processing {0}\r\n{1}", Path.GetFileName(afterAssemblyPath), after);
+            return string.Format("Failed processing {0}\r\n{1}", Path.GetFileName(afterAssemblyPath), after);
         }
 
         public static string Validate(string assemblyPath2)
@@ -35,11 +35,21 @@ namespace ExtensibleILRewriter
 
         public static string GetPathToPEVerify()
         {
-            var exePath = Environment.ExpandEnvironmentVariables(@"%programfiles(x86)%\Microsoft SDKs\Windows\v7.0A\Bin\NETFX 4.0 Tools\PEVerify.exe");
+            var exePath = Environment.ExpandEnvironmentVariables(@"%programfiles(x86)%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.2 Tools\PEVerify.exe");
+
+            if (!File.Exists(exePath))
+            {
+                exePath = Environment.ExpandEnvironmentVariables(@"%programfiles(x86)%\Microsoft SDKs\Windows\v7.0A\Bin\PEVerify.exe");
+            }
 
             if (!File.Exists(exePath))
             {
                 exePath = Environment.ExpandEnvironmentVariables(@"%programfiles(x86)%\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools\PEVerify.exe");
+            }
+
+            if (!File.Exists(exePath))
+            {
+                exePath = Environment.ExpandEnvironmentVariables(@"%programfiles(x86)%\Microsoft SDKs\Windows\v8.0A\Bin\PEVerify.exe");
             }
 
             return exePath;

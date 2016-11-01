@@ -46,6 +46,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +62,19 @@
     <Compile Include="CodeInjection\CecilExtensions.cs" />
     <Compile Include="CodeInjection\IAttributeProviderArgument.cs" />
     <Compile Include="CodeInjection\ReturnFixer.cs" />
+    <Compile Include="ECSFlowAttributes\AddAttributeProcessor\InjectedAttributeProvider.cs" />
+    <Compile Include="ECSFlowAttributes\ExceptionChannelAttribute.cs" />
+    <Compile Include="ECSFlowAttributes\ExceptionFlowConfig\Ascgen2Mapping.cs" />
+    <Compile Include="ECSFlowAttributes\ExceptionFlowConfig\MethodInjectionCodeProvider.cs" />
+    <Compile Include="ECSFlowAttributes\ExceptionHandlerAttribute.cs" />
+    <Compile Include="ECSFlowAttributes\ExceptionInterfaceAttribute.cs" />
+    <Compile Include="ECSFlowAttributes\ExceptionRaiseSiteAttribute.cs" />
+    <Compile Include="ECSFlowAttributes\HandlerDelegate.cs" />
+    <Compile Include="ECSFlowAttributes\IECSFlowAttribute.cs" />
+    <Compile Include="ECSFlowAttributes\MethodAttributes.cs" />
+    <Compile Include="ECSFlowAttributes\MethodCodeInjectingProcessor\MethodCodeInjectingProcessor.cs" />
+    <Compile Include="ECSFlowAttributes\MethodCodeInjectingProcessor\MethodInjectionCodeProvider.cs" />
+    <Compile Include="ECSFlowAttributes\MethodCodeInjectingProcessor\State.cs" />
     <Compile Include="IProcessableComponent.cs" />
     <Compile Include="Logging\DummyLogger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
@@ -125,6 +139,9 @@
     <Folder Include="Processors\Types\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ECSFlowAttributes\ExceptionFlowConfig\_definitions.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

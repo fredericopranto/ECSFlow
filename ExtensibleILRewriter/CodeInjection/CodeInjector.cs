@@ -62,7 +62,7 @@ namespace ExtensibleILRewriter.CodeInjection
 
         public void Inject(MethodDefinition method, MethodCodeInjectingCodeProviderArgument codeProviderArgument, ILogger logger, MethodInjectionPlace injectionPlace, CustomInstructionsInjection injectNewInstructions)
         {
-            var callInfo = codeProvider.GetCallInfo(codeProviderArgument, method.Module);
+            var callInfoCollection = codeProvider.GetCallInfo(codeProviderArgument, method.Module);
 
             if (!method.HasBody)
             {
@@ -75,14 +75,17 @@ namespace ExtensibleILRewriter.CodeInjection
 
             if (injectionPlace == MethodInjectionPlace.InCatchBlock)
             {
-                GenerateInstructionsForInjectedCallInTryCatchBlock(method, newInstructions, callInfo.MethodReferenceToBeCalled, callInfo.CallArguments);
+                GenerateInstructionsForInjectedCallInTryCatchBlock(method, newInstructions, callInfoCollection[0].MethodReferenceToBeCalled, callInfoCollection[0].CallArguments);
             }
             else
             {
-                GenerateInstructionsForInjectedCall(newInstructions, callInfo.MethodReferenceToBeCalled, callInfo.CallArguments);
+                GenerateInstructionsForInjectedCall(newInstructions, callInfoCollection[0].MethodReferenceToBeCalled, callInfoCollection[0].CallArguments);
             }
 
-            injectNewInstructions(method.Body, newInstructions, callInfo.MethodReferenceToBeCalled.Resolve());
+            foreach (var callInfo in callInfoCollection)
+            {
+                injectNewInstructions(method.Body, newInstructions, callInfo.MethodReferenceToBeCalled.Resolve());
+            }
         }
 
         private static void GenerateInstructionsForInjectedCall(Collection<Instruction> instructions, MethodReference methodCall, CodeProviderCallArgument[] arguments)
