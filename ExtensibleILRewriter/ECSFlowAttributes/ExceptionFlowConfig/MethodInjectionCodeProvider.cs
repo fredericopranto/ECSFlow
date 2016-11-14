@@ -1,5 +1,6 @@
 ﻿using ExtensibleILRewriter.CodeInjection;
 using ExtensibleILRewriter.Processors.Methods;
+using Mono.Cecil;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -8,13 +9,18 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
 {
     public partial class MethodInjectionCodeProvider : CodeProvider<MethodCodeInjectingCodeProviderArgument>
     {
-        public static void Exception(State state)
+        public static void LevelsSettingsHandler(State state)
+        {
+            // return base.ConvertFrom(context, culture, value);
+        }
+
+        public static void PrintErrorHandlerException(State state)
         {
             MessageBox.Show(
-                        "Print Error",
-                        "Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                "PrintError", // + ":" +ex.Message,
+                "Error",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
         }
 
         public static void ArgumentException(State state)

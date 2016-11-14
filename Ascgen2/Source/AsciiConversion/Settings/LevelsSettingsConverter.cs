@@ -87,16 +87,16 @@ namespace JMSoftware.AsciiConversion.TextSettings
 
             LevelsSettings result = new LevelsSettings();
 
-            try
-            {
+            //try
+            //{
                 result.Minimum = int.Parse(values[0]);
                 result.Median = float.Parse(values[1]);
                 result.Maximum = int.Parse(values[2]);
-            }
-            catch
-            {
-                return base.ConvertFrom(context, culture, value);
-            }
+            //}
+            //catch
+            //{
+            //    return base.ConvertFrom(context, culture, value);
+            //}
 
             return result;
         }

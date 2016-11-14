@@ -19,9 +19,9 @@ namespace ExtensibleILRewriter.CodeInjection
 
         public void AddAttributeFromProvider(IProcessableComponent component, ILogger logger)
         {
-            foreach (var customAttribute in attributeProvider.GetAttributeMapping(component))
+            foreach (var customAttributeType in attributeProvider.GetAttributeMapping(component))
             {
-                var attributeInfo = attributeProvider.GetAttributeInfo(component, customAttribute);
+                var attributeInfo = attributeProvider.GetAttributeInfo(component, customAttributeType);
 
                 if (!attributeInfo.ShouldBeAttributeInjected)
                 {
