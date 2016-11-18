@@ -1,7 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace ECSFlowAttributes
+﻿namespace ECSFlowAttributes
 {
-    [ComVisible(true)]
     public delegate void HandlerDelegate();
 }

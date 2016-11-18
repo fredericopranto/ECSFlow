@@ -718,8 +718,6 @@ namespace JMSoftware.AsciiGeneratorDotNet
 
             Color[][] colors = null;
 
-            //try
-            //{
                 using (Image image = Image.FromFile(filename))
                 {
                     this.dimensionsCalculator.ImageSize = image.Size;
@@ -737,23 +735,6 @@ namespace JMSoftware.AsciiGeneratorDotNet
                                                 true);
                     }
                 }
-            //}
-            //catch (FileNotFoundException)
-            //{
-            //    this.AddLogString(Resource.GetString("Error") + ": " + Resource.GetString("File Not Found") + ".");
-            //    return false;
-            //}
-            //catch (OutOfMemoryException)
-            //{
-            //    this.AddLogString(Resource.GetString("Error") + ": " + Resource.GetString("Invalid or unsupported file") + ".");
-            //    return false;
-            //}
-
-            //if (convertedText == null || convertedText.Length == 0)
-            //{
-            //    this.AddLogString(Resource.GetString("Error converting the image"));
-            //    return false;
-            //}
 
             return this.SaveOutputImage(convertedText, colors, outputFilename);
         }

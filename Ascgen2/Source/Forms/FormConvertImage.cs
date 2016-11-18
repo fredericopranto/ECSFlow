@@ -996,8 +996,6 @@ namespace JMSoftware.AsciiGeneratorDotNet
                 return false;
             }
 
-            //try
-            //{
                 Image image;
 
                 using (Image loadedImage = Image.FromFile(imagePath))
@@ -1026,27 +1024,7 @@ namespace JMSoftware.AsciiGeneratorDotNet
                 this.dialogLoadImage.FileName = this.Filename = imagePath;
 
                 return this.LoadImage(image);
-            //}
-            //catch (OutOfMemoryException)
-            //{ // Catch any bad image files
-            //    MessageBox.Show(
-            //                Resource.GetString("Unknown or Unsupported File"),
-            //                Resource.GetString("Error"),
-            //                MessageBoxButtons.OK,
-            //                MessageBoxIcon.Error);
 
-            //    return false;
-            //}
-            //catch (FileNotFoundException)
-            //{
-            //    MessageBox.Show(
-            //                Resource.GetString("File Not Found"),
-            //                Resource.GetString("Error"),
-            //                MessageBoxButtons.OK,
-            //                MessageBoxIcon.Error);
-
-            //    return false;
-            //}
         }
 
         #endregion Public methods
@@ -1674,8 +1652,6 @@ namespace JMSoftware.AsciiGeneratorDotNet
         {
             this.printColour = useColor;
 
-            //try
-            //{
                 if (preview)
                 {
                     this.printPreviewDialog.ShowDialog();
@@ -1684,15 +1660,7 @@ namespace JMSoftware.AsciiGeneratorDotNet
                 {
                     this.printDocument.Print();
                 }
-            //}
-            //catch (System.Exception ex)
-            //{
-            //    MessageBox.Show(
-            //            Resource.GetString("Print Error") + ": " + ex.Message,
-            //            Resource.GetString("Error"),
-            //            MessageBoxButtons.OK,
-            //            MessageBoxIcon.Error);
-            //}
+            
         }
 
         /// <summary>
@@ -2076,18 +2044,8 @@ namespace JMSoftware.AsciiGeneratorDotNet
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void MenuFilePageSetup_Click(object sender, EventArgs e)
         {
-            //try
-            //{
                 this.pageSetupDialog.ShowDialog();
-            //}
-            //catch (System.Exception ex)
-            //{
-            //    MessageBox.Show(
-            //        Resource.GetString("Print Error") + ": " + ex.Message,
-            //        Resource.GetString("Error"),
-            //        MessageBoxButtons.OK,
-            //        MessageBoxIcon.Error);
-            //}
+
         }
 
         /// <summary>
@@ -2808,23 +2766,11 @@ namespace JMSoftware.AsciiGeneratorDotNet
         /// </summary>
         private void ShowFontDialog()
         {
-            //try
-            //{
                 if (this.dialogChooseFont.ShowDialog() == DialogResult.OK)
                 {
                     this.Font = this.dialogChooseFont.Font;
                 }
-            //}
-            //catch (System.ArgumentException)
-            //{
-            //    MessageBox.Show(
-            //                Resource.GetString("Unable to select this font"),
-            //                Resource.GetString("Error"),
-            //                MessageBoxButtons.OK,
-            //                MessageBoxIcon.Error,
-            //                MessageBoxDefaultButton.Button1,
-            //                MessageBoxOptions.ServiceNotification);
-            //}
+            
         }
 
         /// <summary>
@@ -2927,14 +2873,9 @@ namespace JMSoftware.AsciiGeneratorDotNet
                 return;
             }
 
-            try
-            {
+            
                 this.dimensionsCalculator.Height = Convert.ToInt32(this.tbxHeight.Text, Variables.Instance.Culture);
-            }
-            catch (FormatException)
-            {
-                return;
-            }
+            
         }
 
         /// <summary>
@@ -2949,14 +2890,9 @@ namespace JMSoftware.AsciiGeneratorDotNet
                 return;
             }
 
-            try
-            {
+            
                 this.dimensionsCalculator.Width = Convert.ToInt32(this.tbxWidth.Text, Variables.Instance.Culture);
-            }
-            catch (FormatException)
-            {
-                return;
-            }
+            
         }
 
         /// <summary>

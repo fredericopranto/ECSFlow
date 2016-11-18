@@ -147,14 +147,7 @@ namespace JMSoftware.AsciiGeneratorDotNet
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void TbxHeight_TextChanged(object sender, System.EventArgs e)
         {
-            try
-            {
                 this.characterSize.Height = Convert.ToInt32(this.tbxHeight.Text, Variables.Instance.Culture);
-            }
-            catch (FormatException)
-            {
-                this.characterSize.Height = -1;
-            }
 
             this.UpdateOkButton();
         }
@@ -166,15 +159,8 @@ namespace JMSoftware.AsciiGeneratorDotNet
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void TbxWidth_TextChanged(object sender, System.EventArgs e)
         {
-            try
-            {
                 this.characterSize.Width = Convert.ToInt32(this.tbxWidth.Text, Variables.Instance.Culture);
-            }
-            catch (FormatException)
-            {
-                this.characterSize.Width = -1;
-            }
-
+            
             this.UpdateOkButton();
         }
 

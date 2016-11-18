@@ -1,5 +1,4 @@
-﻿using ECSFlowAttributes;
-using System;
+﻿using System;
 
 namespace ECSFlowAttributes
 {
@@ -10,10 +9,6 @@ namespace ECSFlowAttributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     public class ExceptionChannelAttribute : Attribute, IECSFlowAttribute
     {
-        private string name;
-        private string exception;
-        private string raiseSite;
-
         public ExceptionChannelAttribute(string name, string exception, string raiseSite)
         {
             this.Name = name;
@@ -21,43 +16,10 @@ namespace ECSFlowAttributes
             this.RaiseSite = raiseSite;
         }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
+        public string Name { get; set; }
 
-            set
-            {
-                name = value;
-            }
-        }
+        public string Exception { get; set; }
 
-        public string Exception
-        {
-            get
-            {
-                return exception;
-            }
-
-            set
-            {
-                exception = value;
-            }
-        }
-
-        public string RaiseSite
-        {
-            get
-            {
-                return raiseSite;
-            }
-
-            set
-            {
-                raiseSite = value;
-            }
-        }
+        public string RaiseSite { get; set; }
     }
 }

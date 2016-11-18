@@ -1016,24 +1016,13 @@ namespace JMSoftware.AsciiGeneratorDotNet
 
             Variables variables = null;
 
-            try
-            {
+            
                 stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.None);
 
                 IFormatter formatter = new BinaryFormatter();
 
                 variables = (Variables)formatter.Deserialize(stream);
-            }
-            catch (Exception)
-            {
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    stream.Close();
-                }
-            }
+            
 
             return variables;
         }
@@ -1046,25 +1035,12 @@ namespace JMSoftware.AsciiGeneratorDotNet
         private static void Save(Variables variables, string filename)
         {
             Stream stream = null;
-
-            try
-            {
+            
                 stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
 
                 IFormatter formatter = new BinaryFormatter();
 
                 formatter.Serialize(stream, variables);
-            }
-            catch (Exception)
-            {
-            }
-            finally
-            {
-                if (stream != null)
-                {
-                    stream.Close();
-                }
-            }
         }
 
         #endregion Private methods

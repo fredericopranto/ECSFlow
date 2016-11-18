@@ -44,6 +44,9 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mono.cecil.pdb">
+      <HintPath>.\mono.cecil.pdb.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -71,7 +74,6 @@
     <Compile Include="ECSFlowAttributes\ExceptionRaiseSiteAttribute.cs" />
     <Compile Include="ECSFlowAttributes\HandlerDelegate.cs" />
     <Compile Include="ECSFlowAttributes\IECSFlowAttribute.cs" />
-    <Compile Include="ECSFlowAttributes\MethodAttributes.cs" />
     <Compile Include="ECSFlowAttributes\MethodCodeInjectingProcessor\MethodCodeInjectingProcessor.cs" />
     <Compile Include="ECSFlowAttributes\MethodCodeInjectingProcessor\MethodInjectionCodeProvider.cs" />
     <Compile Include="ECSFlowAttributes\MethodCodeInjectingProcessor\State.cs" />
@@ -122,10 +124,6 @@
     <ProjectReference Include="..\cecil\rocks\Mono.Cecil.Rocks.csproj">
       <Project>{fbc6dd59-d09d-499c-b03c-99c1c78ff2ac}</Project>
       <Name>Mono.Cecil.Rocks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\cecil\symbols\pdb\Mono.Cecil.Pdb.csproj">
-      <Project>{63e6915c-7ea4-4d76-ab28-0d7191eea626}</Project>
-      <Name>Mono.Cecil.Pdb</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

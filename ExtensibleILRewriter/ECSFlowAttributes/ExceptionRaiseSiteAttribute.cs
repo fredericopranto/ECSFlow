@@ -1,5 +1,4 @@
-﻿using ECSFlowAttributes;
-using System;
+﻿using System;
 
 namespace ECSFlowAttributes
 {
@@ -9,39 +8,14 @@ namespace ECSFlowAttributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     public class ExceptionRaiseSiteAttribute : Attribute, IECSFlowAttribute
     {
-        private string name;
-        private string target;
-
         public ExceptionRaiseSiteAttribute(string name, string target)
         {
             this.Name = name;
             this.Target = target;
         }
 
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
+        public string Name { get; set; }
 
-            set
-            {
-                name = value;
-            }
-        }
-
-        public string Target
-        {
-            get
-            {
-                return target;
-            }
-
-            set
-            {
-                target = value;
-            }
-        }
+        public string Target { get; set; }
     }
 }

@@ -145,38 +145,13 @@ namespace JMSoftware.AsciiGeneratorDotNet
                     return translations;
                 }
 
-                try
-                {
+                
                     doc.Load(TranslationFile);
 
                     foreach (XmlNode node in doc.DocumentElement.ChildNodes)
                     {
                         translations.Add(node.Attributes[0].InnerText, node.InnerText);
                     }
-                }
-                catch (XmlException ex)
-                {
-                    MessageBox.Show(ex.Message, string.Format(GetString("Error with settings file '{0}'"), TranslationFile), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (System.IO.FileNotFoundException)
-                {
-                    if (TranslationFile != "translation.xml")
-                    {
-                        MessageBox.Show(
-                                    string.Format(
-                                            GetString("Could not load translation file '{0}'"), TranslationFile),
-                                            GetString("Error"),
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                    }
-                }
-                catch (ArgumentException)
-                {
-                }
-                finally
-                {
-                    translationFileChecked = true;
-                }
 
                 return translations;
             }

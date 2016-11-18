@@ -1,19 +1,13 @@
-﻿using ECSFlowAttributes;
-using System;
+﻿using System;
 
 namespace ECSFlowAttributes
 {
     /// <summary>
-    /// 
+    /// Pluggable handlers are exception handlers that can be attached to explicit exception channels.
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     public class ExceptionHandlerAttribute : Attribute, IECSFlowAttribute
     {
-        private string channel;
-        private string target;
-        private string exception;
-        private string methodName;
-
         public ExceptionHandlerAttribute(string channel, string target, string exception, string methodName)
         {
             this.Channel = channel;
@@ -22,56 +16,12 @@ namespace ECSFlowAttributes
             this.MethodName = methodName;
         }
 
-        public string Channel
-        {
-            get
-            {
-                return channel;
-            }
+        public string Channel { get; set; }
 
-            set
-            {
-                channel = value;
-            }
-        }
+        public string Target { get; set; }
 
-        public string Target
-        {
-            get
-            {
-                return target;
-            }
+        public string Exception { get; set; }
 
-            set
-            {
-                target = value;
-            }
-        }
-
-        public string Exception
-        {
-            get
-            {
-                return exception;
-            }
-
-            set
-            {
-                exception = value;
-            }
-        }
-
-        public string MethodName
-        {
-            get
-            {
-                return methodName;
-            }
-
-            set
-            {
-                methodName = value;
-            }
-        }
+        public string MethodName { get; set; }
     }
 }

@@ -1,13 +1,8 @@
-﻿using ECSFlowAttributes;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace ECSFlowAttributes
 {
     /// <summary>
-    /// An explicit exception channel (channel, for short) is an abstract duct through which exceptions 
-    /// flow from a raising site to a handling site.
-    /// 
     /// When a class or program cannot handle all the exceptions that flow through an explicit
     /// exception channel, it is necessary to declare these exceptions in the channel’s exception
     /// interface.
@@ -15,13 +10,7 @@ namespace ECSFlowAttributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     public class ExceptionInterfaceAttribute : Attribute, IECSFlowAttribute
     {
-        private string exception;
-        private string alias;
-        private string channel;
-        private string raiseSiteName;
-        private bool isNamespace;
-
-        public ExceptionInterfaceAttribute(string channel, string raiseSiteName, bool isNamespace, string exception = null)
+        public ExceptionInterfaceAttribute(string channel, string raiseSiteName, bool isNamespace, string exception)
         {
             this.Exception = exception;
             this.Channel = channel;
@@ -29,69 +18,12 @@ namespace ECSFlowAttributes
             this.IsNamespace = isNamespace;
         }
 
-        public string Exception
-        {
-            get
-            {
-                return exception;
-            }
+        public string Exception { get; set; }
 
-            set
-            {
-                exception = value;
-            }
-        }
+        public string Channel { get; set; }
 
-        public string Alias
-        {
-            get
-            {
-                return alias;
-            }
+        public string RaiseSiteName { get; set; }
 
-            set
-            {
-                alias = value;
-            }
-        }
-
-        public string Channel
-        {
-            get
-            {
-                return channel;
-            }
-
-            set
-            {
-                channel = value;
-            }
-        }
-
-        public string RaiseSiteName
-        {
-            get
-            {
-                return raiseSiteName;
-            }
-
-            set
-            {
-                raiseSiteName = value;
-            }
-        }
-
-        public bool IsNamespace
-        {
-            get
-            {
-                return isNamespace;
-            }
-
-            set
-            {
-                isNamespace = value;
-            }
-        }
+        public bool IsNamespace { get; set; }
     }
 }
