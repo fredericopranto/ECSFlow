@@ -8,6 +8,8 @@ https://github.com/Fody/Fody
 
 https://github.com/markusschweitzer/ILRewriter
 
+https://github.com/kindermannhubert/ExtensibleILRewriter
+
 https://github.com/duaneedwards/SwallowExceptions
 
 https://cciexplorer.codeplex.com/
