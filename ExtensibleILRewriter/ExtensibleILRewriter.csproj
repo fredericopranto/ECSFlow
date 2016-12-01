@@ -68,6 +68,7 @@
     <Compile Include="ECSFlowAttributes\AddAttributeProcessor\InjectedAttributeProvider.cs" />
     <Compile Include="ECSFlowAttributes\ExceptionChannelAttribute.cs" />
     <Compile Include="ECSFlowAttributes\ExceptionFlowConfig\Ascgen2Mapping.cs" />
+    <Compile Include="ECSFlowAttributes\ExceptionFlowConfig\ExceptionFlowConfigVerifier.cs" />
     <Compile Include="ECSFlowAttributes\ExceptionFlowConfig\MethodInjectionCodeProvider.cs" />
     <Compile Include="ECSFlowAttributes\ExceptionHandlerAttribute.cs" />
     <Compile Include="ECSFlowAttributes\ExceptionInterfaceAttribute.cs" />
@@ -137,6 +138,7 @@
     <Folder Include="Processors\Types\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ECSFlowClassDiagram.cd" />
     <None Include="ECSFlowAttributes\ExceptionFlowConfig\_definitions.config">
       <SubType>Designer</SubType>
     </None>

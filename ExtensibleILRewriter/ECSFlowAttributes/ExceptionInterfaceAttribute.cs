@@ -10,20 +10,17 @@ namespace ECSFlowAttributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     public class ExceptionInterfaceAttribute : Attribute, IECSFlowAttribute
     {
-        public ExceptionInterfaceAttribute(string channel, string raiseSiteName, bool isNamespace, string exception)
+        public ExceptionInterfaceAttribute(string name, string channel, string raiseSiteName)
         {
-            this.Exception = exception;
+            this.Name = name;
             this.Channel = channel;
             this.RaiseSiteName = raiseSiteName;
-            this.IsNamespace = isNamespace;
         }
 
-        public string Exception { get; set; }
+        public string Name { get; set; }
 
         public string Channel { get; set; }
 
         public string RaiseSiteName { get; set; }
-
-        public bool IsNamespace { get; set; }
     }
 }

@@ -9,13 +9,13 @@ namespace ECSFlowAttributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     public class ExceptionChannelAttribute : Attribute, IECSFlowAttribute
     {
-        public ExceptionChannelAttribute(string name, string exception, string raiseSite)
+        public ExceptionChannelAttribute(string name, string exception, string raiseSite = "")
         {
             this.Name = name;
             this.Exception = exception;
             this.RaiseSite = raiseSite;
         }
-
+        
         public string Name { get; set; }
 
         public string Exception { get; set; }

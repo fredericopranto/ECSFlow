@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ECSFlowAttributes.MethodCodeInjectingProcessor
+namespace ECSFlowAttributes
 {
     public class State
     {

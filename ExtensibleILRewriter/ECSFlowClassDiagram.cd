@@ -1,0 +1,463 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ExtensibleILRewriter.AssemblyRewriter" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAADAEAAAAAAgGAAEAEEAEIABAhQBAABAABAACAAA=</HashCode>
+      <FileName>AssemblyRewriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.ComponentProcessor&lt;ConfigurationType&gt;" Collapsed="true">
+    <Position X="3" Y="3.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAIAAAAAAgAAAAAAAAgAAAAIgAAAAAAAAAA=</HashCode>
+      <FileName>ComponentProcessor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExtensibleILRewriter.ComponentProcessorConfiguration" Collapsed="true">
+    <Position X="4.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAgCAIAAAAgAgAAABAAAAAAAAAA=</HashCode>
+      <FileName>ComponentProcessorConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.ComponentProcessorProperties" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEIAAAAAAAAAABAAAAAAAAAAAAAACAAEAAAAAAAAAAA=</HashCode>
+      <FileName>ComponentProcessorProperties.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ExtensibleILRewriter.ProcessableComponent&lt;UnderlyingComponentType, DeclaringComponentType&gt;" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAGAAEAAAAAAAIAAAAAAAAQAAAAgAAAAAQAAAAAIAAE=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ExtensibleILRewriter.AssemblyProcessableComponent" Collapsed="true">
+    <Position X="14.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.ModuleProcessableComponent" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.TypeProcessableComponent" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.FieldProcessableComponent" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.PropertyProcessableComponent" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.MethodProcessableComponent" Collapsed="true">
+    <Position X="10" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.MethodParameterProcessableComponent" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.NoDeclaringComponent" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAGAAEAAAAAAAIAAAAAAAAQAAAAAAAAAAQAAAAAIAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ExtensibleILRewriter.ProcessableComponentExtensions" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.StateInstancesCodeGenerator" Collapsed="true">
+    <Position X="20.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAABAAAAAAAAAgEAA=</HashCode>
+      <FileName>StateInstancesCodeGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.StateInstancesManager" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAEAACAACAAEAgAAAAAgAAEAAAAAAAAAAA=</HashCode>
+      <FileName>StateInstancesManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.TypeAliasResolver" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAgABAEAAAAAAAAAAAAAAQQAAAAAAAAAAAAABAIAAAA=</HashCode>
+      <FileName>TypeAliasResolver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Verifier" Collapsed="true">
+    <Position X="18.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAQAAAAAAAAAAAAAAAAAAgAAAAAAAAQA=</HashCode>
+      <FileName>Verifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.CodeInjection.AttributeInjector" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCAAAAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\AttributeInjector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.CodeInjection.AttributeProvider" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAMAAABCAAAACAAAAAgAAAEACAAAACA=</HashCode>
+      <FileName>CodeInjection\AttributeProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.CodeInjection.CecilExtensions" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAAAAAAAAAAQBAABAAAEAAAVAhAAAACAAAACA=</HashCode>
+      <FileName>CodeInjection\CecilExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.CodeInjection.CodeInjector&lt;CodeProviderArgumentType&gt;" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EEAAAAAAAAAAACgAAAACAAAAAEAAAAAAgAAAASABCAg=</HashCode>
+      <FileName>CodeInjection\CodeInjector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.CodeInjection.CodeProvider&lt;CodeProviderArgumentType&gt;" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAACAAAAAQAAAgBEEAAggAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>CodeInjection\CodeProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.CodeInjection.ReturnFixer" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABCAAABggAChAAAAgAAAAEBAIEAgACAAAABAAAEA=</HashCode>
+      <FileName>CodeInjection\ReturnFixer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.CodeInjection.WeavingException" Collapsed="true">
+    <Position X="20.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\WeavingException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSFlowAttributes.AddAttributeProcessor.InjectedAttributeProvider" Collapsed="true">
+    <Position X="8.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAEACAAAACA=</HashCode>
+      <FileName>ECSFlowAttributes\AddAttributeProcessor\InjectedAttributeProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSFlowAttributes.ExceptionChannelAttribute" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAARAAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\ExceptionChannelAttribute.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ECSFlowAttributes.ExceptionHandlerAttribute" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAACAAAAAAAAAAAABCAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\ExceptionHandlerAttribute.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ECSFlowAttributes.ExceptionInterfaceAttribute" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\ExceptionInterfaceAttribute.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ECSFlowAttributes.ExceptionRaiseSiteAttribute" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\ExceptionRaiseSiteAttribute.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ECSFlowAttributes.MethodCodeInjectingProcessor.MethodCodeInjectingProcessor" Collapsed="true">
+    <Position X="0.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\MethodCodeInjectingProcessor\MethodCodeInjectingProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSFlowAttributes.State" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\MethodCodeInjectingProcessor\State.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Extensions.BoolExtensions" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Extensions\BoolExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Extensions.ILoggerExtensions" Collapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAQAAAAAAABCAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Extensions\ILoggerExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Extensions.MethodDefinitionExtensions" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAAAAAAAAAAAAgAAAAIAAAAAAAAAgAAAAAiAAAAAAQ=</HashCode>
+      <FileName>Extensions\MethodDefinitionExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Extensions.MonoCollectionExtensions" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Extensions\MonoCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Extensions.TypeExtensions" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\TypeExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Extensions.TypeReferenceExtensions" Collapsed="true">
+    <Position X="17" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\TypeReferenceExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Logging.DummyLogger" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Logging\DummyLogger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ExtensibleILRewriter.Processors.AddAttributeProcessor&lt;ConfigurationType&gt;" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Processors\AddAttributeProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Processors.AddAttributeProcessorConfiguration" Collapsed="true">
+    <Position X="3.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAABAAAAAAAAAA=</HashCode>
+      <FileName>Processors\AddAttributeProcessorConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Processors.Methods.MethodCodeInjectingProcessor&lt;ConfigurationType&gt;" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgCAACEoAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Processors\Methods\MethodCodeInjectingProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Processors.Methods.MethodCodeInjectingProcessorConfiguration" Collapsed="true">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAgAAABAAAAAAAAAA=</HashCode>
+      <FileName>Processors\Methods\MethodCodeInjectingProcessorConfiguration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Processors.Modules.ModuleInitializerAttribute" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAACAAAAAAA=</HashCode>
+      <FileName>Processors\Modules\ModuleInitializerAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Processors.Modules.ModuleInitializerProcessor" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIABAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Processors\Modules\ModuleInitializerProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensibleILRewriter.Processors.Parameters.NotNullAttribute" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Processors\Parameters\NotNullAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSFlowAttributes.MethodInjectionCodeProvider" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAgAAAAAQAAAAAgBAEAKgAAAAAAAAAEAgSACgAAA=</HashCode>
+      <FileName>ECSFlowAttributes\ExceptionFlowConfig\MethodInjectionCodeProvider.cs</FileName>
+      <NewMemberFileName>ECSFlowAttributes\MethodCodeInjectingProcessor\MethodInjectionCodeProvider.cs</NewMemberFileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="ExtensibleILRewriter.StateInstanceId" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAQAACBAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>StateInstanceId.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="ExtensibleILRewriter.CodeInjection.AttributeProviderAttributeArgument" Collapsed="true">
+    <Position X="17" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACIAAAAIAAAAAAAAAIAwAAAgAAAAAAQAgAAgAAAA=</HashCode>
+      <FileName>CodeInjection\AttributeProviderAttributeArgument.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ExtensibleILRewriter.CodeInjection.AttributeProviderInjectionInfo" Collapsed="true">
+    <Position X="18.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\AttributeProviderInjectionInfo.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ExtensibleILRewriter.CodeInjection.CodeProviderCallArgument" Collapsed="true">
+    <Position X="20.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAQEAAgEAAAACyAAAAAAAAICQEAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\CodeProviderCallArgument.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ExtensibleILRewriter.CodeInjection.CodeProviderInjectionInfo" Collapsed="true">
+    <Position X="22.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\CodeProviderInjectionInfo.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ExtensibleILRewriter.Processors.Methods.MethodCodeInjectingCodeProviderArgument" Collapsed="true">
+    <Position X="24" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Processors\Methods\MethodCodeInjectingCodeProviderArgument.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="ExtensibleILRewriter.IComponentProcessor&lt;ConfigurationType&gt;" Collapsed="true">
+    <Position X="18.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IComponentProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ExtensibleILRewriter.IProcessableComponent" Collapsed="true">
+    <Position X="24" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAGAAEAAAAAAAIAAAAAAAAQAAAAAAAAAAQAAAAAIAAA=</HashCode>
+      <FileName>IProcessableComponent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ExtensibleILRewriter.CodeInjection.IAttributeProviderArgument&lt;ComponentType, DeclaringComponentType&gt;" Collapsed="true">
+    <Position X="17" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\IAttributeProviderArgument.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ECSFlowAttributes.IECSFlowAttribute" Collapsed="true">
+    <Position X="20.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\IECSFlowAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ExtensibleILRewriter.Logging.ILogger" Collapsed="true">
+    <Position X="22.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Logging\ILogger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ExtensibleILRewriter.ProcessableComponentType" Collapsed="true">
+    <Position X="24" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAAAAAAAAIAgAQAACQAAgAA=</HashCode>
+      <FileName>ProcessableComponentType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ExtensibleILRewriter.CodeInjection.AttributeProviderAttributeArgumentType" Collapsed="true">
+    <Position X="17" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgAAAAAAIAAAABAQQAAAAACAJAACACAAEUAAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\AttributeProviderAttributeArgumentType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ExtensibleILRewriter.CodeInjection.CodeProviderCallArgumentType" Collapsed="true">
+    <Position X="18.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAQAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>CodeInjection\CodeProviderCallArgumentType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ExtensibleILRewriter.Logging.LogLevel" Collapsed="true">
+    <Position X="20.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAABCAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Logging\LogLevel.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ExtensibleILRewriter.Processors.Methods.MethodInjectionPlace" Collapsed="true">
+    <Position X="22.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAABAAAAAAAAAAAgAAAAAAAAIAAAAABAAAA=</HashCode>
+      <FileName>Processors\Methods\MethodInjectionPlace.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="ECSFlowAttributes.HandlerDelegate" Collapsed="true">
+    <Position X="17" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ECSFlowAttributes\HandlerDelegate.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

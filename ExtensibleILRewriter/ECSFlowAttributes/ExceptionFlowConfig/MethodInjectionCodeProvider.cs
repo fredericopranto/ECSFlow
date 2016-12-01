@@ -1,18 +1,17 @@
 ﻿using ExtensibleILRewriter.CodeInjection;
 using ExtensibleILRewriter.Processors.Methods;
-using Mono.Cecil;
 using System;
 using System.IO;
 using System.Windows.Forms;
 
-namespace ECSFlowAttributes.MethodCodeInjectingProcessor
+namespace ECSFlowAttributes
 {
     public partial class MethodInjectionCodeProvider : CodeProvider<MethodCodeInjectingCodeProviderArgument>
     {
         public static void TranslationFileHandler(State state)
         {
-            // if (TranslationFile != "translation.xml")
-            // {
+            if (TranslationFile != "translation.xml")
+            {
                 MessageBox.Show(
                             string.Format(
                                     "Could not load translation file '{0}'"),
@@ -20,7 +19,7 @@ namespace ECSFlowAttributes.MethodCodeInjectingProcessor
                                     MessageBoxButtons.OK,
                                     MessageBoxIcon.Error);
 
-            // }
+            }
         }
 
         public static void ResourceXmlHandler(State state)

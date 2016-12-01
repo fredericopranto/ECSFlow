@@ -2,13 +2,10 @@
 using ExtensibleILRewriter.Processors.Methods;
 using Mono.Cecil;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 
-namespace ECSFlowAttributes.MethodCodeInjectingProcessor
+namespace ECSFlowAttributes
 {
     public partial class MethodInjectionCodeProvider : CodeProvider<MethodCodeInjectingCodeProviderArgument>
     {

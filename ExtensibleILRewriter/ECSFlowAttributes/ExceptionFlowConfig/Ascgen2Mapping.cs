@@ -1,7 +1,4 @@
-﻿using ECSFlowAttributes;
-using ECSFlowAttributes.MethodCodeInjectingProcessor;
-
-[assembly: ExceptionRaiseSite("rSiteConvertImage", "FormBatchConversion.Convert")]
+﻿[assembly: ExceptionRaiseSite("rSiteConvertImage", "FormBatchConversion.Convert")]
 [assembly: ExceptionChannel("channelConvertImage", "System.IO.FileNotFoundException", "rSiteConvertImage")]
 [assembly: ExceptionChannel("channelConvertImage", "System.OutOfMemoryException", "rSiteConvertImage")]
 [assembly: ExceptionHandler("channelConvertImage", "FormConvertImage.LoadImage", "System.IO.FileNotFoundException", nameof(MethodInjectionCodeProvider.FileNotFoundException))]
@@ -23,14 +20,10 @@ using ECSFlowAttributes.MethodCodeInjectingProcessor;
 [assembly: ExceptionChannel("channelLevels", "System.Object", "rSiteLevels")]
 [assembly: ExceptionHandler("channelLevels", "FormConvertImage.ShowFontDialog", "System.ArgumentException", nameof(MethodInjectionCodeProvider.LevelsSettingsHandler))]
 
-// Nesta classe CharacterSizeDialog tem os metodos: TbxHeight_TextChanged e TbxWidth_TextChanged
-// Nesta classe FormConvertImage tem os metodos: TbxHeight_TextChanged e TbxWidth_TextChanged
-// Onde tratar erros de eventos de tela?
 [assembly: ExceptionRaiseSite("rSiteCharacterSize", "CharacterSizeDialog, FormConvertImage")]
 [assembly: ExceptionChannel("channelCharacterSize", "System.FormatException", "rSiteCharacterSize")]
 [assembly: ExceptionHandler("channelCharacterSize", "Main", "System.FormatException", nameof(MethodInjectionCodeProvider.FormatExceptionHandler))]
 
-// Resources
 [assembly: ExceptionRaiseSite("rSiteResource", "CharacterSizeDialog")]
 [assembly: ExceptionChannel("channelResource", "System.XmlException", "rSiteResource")]
 [assembly: ExceptionChannel("channelResource", "System.IO.FileNotFoundException", "rSiteResource")]
@@ -40,3 +33,6 @@ using ECSFlowAttributes.MethodCodeInjectingProcessor;
 [assembly: ExceptionRaiseSite("rSiteVariables", "Variables.Load, Variables.Save")]
 [assembly: ExceptionChannel("channelVariables", "System.Exception", "rSiteVariables")]
 [assembly: ExceptionHandler("channelVariables", "Main", "System.Exception", nameof(MethodInjectionCodeProvider.VariablesExceptionHandler))]
+
+[assembly: ExceptionChannel("channelArgumentException", "System.ArgumentException+")]
+[assembly: ExceptionHandler("channelArgumentException", "Ascgen2.Main", "ArgumentException+", nameof(MethodInjectionCodeProvider.ArgumentException))]
